@@ -1,0 +1,28 @@
+.field-with-label {
+    display: grid;
+    grid-template-columns: 3fr 7fr;
+}
+
+.form-label {
+}
+
+.form-input {
+}
+
+.form-text-area {
+}
+
+.form-select {
+}
+
+.form-select-option {
+}
+
+.form-validation-error {
+    color: var(--Secondary-2, #DB4444);
+    font-family: Roboto;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+}

@@ -1,0 +1,42 @@
+.main-logo-link {
+    width: 128px;
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;   
+}
+
+.main-logo-text {
+    width: 80px;
+    height: 35px;
+    align-self: flex-end;
+    justify-self: flex-end;
+}
+
+.main-logo {
+    width: 40px;
+    height: 40px;
+}
+
+.main-logo-white-link {
+    width: 128px;
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;   
+}
+
+.main-logo-white-best-text {
+    width: 79.18px;
+    height: 14.926px;
+}
+.main-logo-white-piople-text {
+    width: 79.18px;
+    height: 14.926px;
+}
+
+.main-logo-white {
+    width: 40px;
+    height: 40px;
+}
+

@@ -1,0 +1,37 @@
+.admin-pannel-tab-content-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-pannel-tab-title {
+  color: var(--Gray-Scale-Gray-900, #1a1a1a);
+  font-family: Roboto;
+  font-size: 3vw;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 120%;
+}
+
+.admin-panel-content-container {
+  display: flex;
+  justify-content: center;
+}
+
+.admin-panel-tab {
+  display: flex;
+  width: 130px;
+  height: 25px;
+  align-items: center;
+  color: var(--black, #272727);
+  text-align: center;
+  font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.admin-panel-groups-row-number {
+  width: 20px;
+}

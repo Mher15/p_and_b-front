@@ -1,0 +1,31 @@
+.main-banner-text {
+    position: absolute;
+    top: 20%;
+    left: 25%;
+    color: #FFF;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Roboto;
+    font-size: 6vw;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    letter-spacing: 6px;
+    width: 30%;
+    transform: translate(-50%, -50%);
+    text-wrap: wrap;
+}
+
+.main-banner {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%; /* 16:9 aspect ratio */
+  }
+  
+  .main-banner-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }

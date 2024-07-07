@@ -1,0 +1,31 @@
+.navigation {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    gap: 20px;
+}
+
+.navigation-item {
+    justify-content: center;
+    align-content: center;
+    color: var(--black, #272727);
+    text-align: center;
+    font-family: Roboto;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    white-space: nowrap;
+}
+
+.navigation-item-active {
+    justify-content: center;
+    align-content: center;
+    color: var(--green-bp, #B3DB11);
+    text-align: center;
+    font-family: Roboto;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}

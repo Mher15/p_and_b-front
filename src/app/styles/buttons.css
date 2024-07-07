@@ -1,0 +1,13 @@
+.button {
+    width: 250px;
+    padding: 16px 40px;
+    border-radius: 43px;
+    background: var(--green-bp, #B3DB11);
+    border: none;
+    color: var(--Gray-Scale-White, #FFF);
+    font-family: Roboto;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 120%;
+}

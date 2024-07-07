@@ -1,0 +1,125 @@
+@import "../base/variables";
+
+.tabs {
+  &__controls {
+    position: relative;
+    padding-bottom: 1px;
+
+    &-list {
+      display: flex;
+      align-items: center;
+
+      @media (max-width: 575px) {
+        display: none;
+      }
+    }
+
+    &-item {
+      button {
+        display: inline-flex;
+        align-items: center;
+
+        border-bottom: 2px solid transparent;
+        padding: 16px;
+        font-family: "Roboto", sans-serif;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 150%;
+        color: #808080;
+
+        transition: border-color 0.3s ease, color 0.3s ease;
+
+        &:hover {
+          color: #b3db11;
+        }
+      }
+
+      &.active {
+        button {
+          border-color: #b3db11;
+          color: #1a1a1a;
+        }
+      }
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      width: 100vw;
+      height: 1px;
+      left: 50%;
+      background: #e5e5e5;
+      transform: translateX(-50%);
+
+      user-select: none;
+      pointer-events: none;
+    }
+
+    @media (max-width: 575px) {
+      &::after {
+        display: none;
+      }
+    }
+  }
+
+  &__content {
+    display: none;
+
+    &.active {
+      display: block;
+    }
+  }
+
+  &__select {
+    display: none;
+
+    .nice-select {
+      border-color: #b3db11;
+      padding: 10px 16px;
+      width: 100%;
+      height: 56px;
+      font-weight: 500;
+
+      &::after {
+        width: 12px;
+        height: 12px;
+        background: url("/images/icons/arrow-green.svg") center center/contain
+          no-repeat;
+      }
+    }
+
+    @media (max-width: 575px) {
+      display: flex;
+    }
+  }
+}
+
+.payments-tabs {
+  .active-payment-tab {
+    border-bottom: 2px solid $green;
+    }
+    
+    >div {
+      >.payments-tablist {
+        margin-bottom: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        grid-gap: 10px;
+        
+        >li {
+        padding: 7px 20px;
+        min-height: 40px;
+        font-size: 12px;
+        font-weight: 700;
+        cursor: pointer;
+        outline: none;
+
+        &:hover {
+          border-bottom: 2px solid $green;
+        }
+      }
+    }
+  }
+}

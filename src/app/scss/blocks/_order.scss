@@ -1,0 +1,148 @@
+.order {
+    padding-bottom: 45px;
+
+    &__title {
+        font-size: 24px;
+    }
+
+    &__block {
+        border-top: 1px solid #E6E6E6;
+        padding: 45px 0 30px;
+
+        &:first-child {
+            border-top: 0;
+            padding-top: 0;
+            max-width: 627px;
+        }
+
+        &:last-child {
+            padding-bottom: 0;
+        }
+    }
+
+    &__col {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 18px;
+        margin-top: 18px;
+
+        &--2 {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+
+            &.fixed {
+                max-width: 66%;
+            }
+        }
+
+        &--3 {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        @media (max-width: 767px) {
+            gap: 6px;
+        }
+
+        @media (max-width: 640px) {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+
+
+            &--2 {
+                &.fixed {
+                    max-width: 100%;
+                }
+            }
+        }
+
+        @media (max-width: 575px) {
+            margin-top: 15px;
+        }
+    }
+
+    &__chose-map {
+        margin-top: 8px;
+        padding: 14px 61px;
+    }
+
+    &__radios {
+        margin-top: 20px;
+    }
+
+    &__radio {
+        border-radius: 8px;
+        border: 1px solid #E6E6E6;
+        padding: 19px 16px;
+
+        input {
+            margin-right: 8px;
+
+            &::before {
+                background: #6E860B;
+            }
+        }
+
+        input:checked {
+            border-color: #6E860B;
+        }
+
+        b {
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 150%;
+            color: #6E860B;
+        }
+
+        span {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 300px;
+        }
+    }
+
+    &__label {
+        @media (max-width: 767px) {
+            &--patronymic {
+                display: none;
+            }
+
+            &--email {
+                grid-row-start: 1;
+            }
+        }
+    }
+    
+    &__textarea {
+        margin-top: 35px;
+        display: block;
+        min-height: 100px;
+    }
+
+    &__btn-order {
+        margin-top: 32px;
+        min-width: 260px;
+    }
+
+    @media (max-width: 991px) {
+        .invoice-page__wrapper {
+            gap: 0;    
+        }
+
+        .invoice-page__result {
+            margin-bottom: 40px;
+            grid-row-start: 1;
+        }
+    }
+
+    @media (max-width: 767px) {
+        .invoice-page__result {
+            padding-bottom: 13px;
+        }
+
+        .invoice-page__result {
+            margin-bottom: 24px;
+        }
+    }
+}

@@ -1,0 +1,20 @@
+.title {
+    font-size: 40px;
+    font-weight: 600;
+    line-height: 120%; 
+    color: #1A1A1A;
+
+    &--sm {
+        font-size: 20px;
+        font-weight: 500;
+        line-height: 1.5;
+    }
+
+    @media (max-width: 575px) {
+        font-size: 24px;
+
+        &--sm {
+            font-size: 20px;
+        }
+    }
+}

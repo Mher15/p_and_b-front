@@ -1,0 +1,55 @@
+.btn {
+    border: none;
+    border-radius: 43px;
+    padding: 14px 32px;
+
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 120%;
+    color: #fff;
+
+    background: #B3DB11;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+
+    svg {
+        margin-left: 12px;
+        width: 22px;
+        height: 22px;
+        flex-shrink: 0;
+    }
+
+    &[disabled] {
+        background: #BDBDBD;
+        cursor: not-allowed;
+
+        &:hover {
+            background: #BDBDBD!important;
+        }
+    }
+
+    &--lg {
+        padding: 16px 40px;
+        font-size: 16px;
+    }
+
+    &:hover {
+        background: #6E860B;
+    }
+    
+    &--empty {
+        border: 2px solid #B3DB11;
+        color: #B3DB11;
+        background: #fff;
+
+        &:hover {
+            border-color: #6E860B;
+            color: #6E860B;
+            background: #fff;
+        }
+    }
+
+    &:focus {
+        outline: 0;
+    }
+}

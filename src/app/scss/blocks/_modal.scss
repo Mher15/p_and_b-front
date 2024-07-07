@@ -1,0 +1,266 @@
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10112;
+  overflow: hidden;
+
+  width: 100%;
+  height: 100%;
+
+  background: rgba(0, 0, 0, 0.7);
+
+  visibility: hidden;
+  opacity: 0;
+
+  transition: opacity 0.3s linear, visibility 0.3s linear;
+
+  @media (max-width: 767px) {
+    top: 195px;
+  }
+
+  &__curtain {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 233px 155px 0;
+    width: 100%;
+    height: 100%;
+    max-width: 700px;
+    margin-left: auto;
+    transform: translateX(100%);
+    opacity: 0;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    background: #fff;
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+      width: 4px;
+      background: none;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #04102c;
+    }
+
+    &--forget {
+      padding-left: 140px;
+      padding-right: 100px;
+    }
+
+    &--begin,
+    &--client,
+    &--client-after {
+      padding-left: 122px;
+      padding-right: 85px;
+
+      .modal__title {
+        color: #6e860b;
+      }
+    }
+
+    @media (max-width: 1199px) {
+      padding-top: 100px;
+    }
+
+    @media (max-width: 991px) {
+      padding-top: 80px;
+    }
+
+    @media (max-width: 767px) {
+      width: 100%;
+      max-width: 100%;
+      padding: 60px 24px 0;
+      height: calc(100% - 195px);
+    }
+
+    @media (max-width: 575px) {
+      padding-top: 60px;
+    }
+  }
+
+  &__title {
+    font-size: 36px;
+    font-weight: 300;
+    letter-spacing: 1.44px;
+
+    @media (max-width: 374px) {
+      font-size: 28px;
+    }
+  }
+
+  &__descr {
+    margin-top: 24px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    color: #6e860b;
+    cursor: pointer;
+
+    @media (max-width: 374px) {
+      margin-top: 15px;
+      font-size: 14px;
+      line-height: 18px;
+    }
+  }
+
+  &__form {
+    margin-top: 40px;
+    max-width: 370px;
+
+    .form__label {
+      margin-top: 32px;
+
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+
+    .form__input {
+      border-color: #000;
+      border-radius: 0;
+      border-top: 0;
+      border-left: 0;
+      border-right: 0;
+
+      padding: 8px 0;
+    }
+  }
+
+  &__controls {
+    margin-top: 40px;
+    display: flex;
+  }
+
+  &__login-to {
+    min-width: 191px;
+
+    @media (max-width: 575px) {
+      min-width: unset;
+      flex: 1;
+    }
+  }
+
+  &__forget-trigger {
+    margin-left: 25px;
+    padding: 13px 12px;
+    font-weight: 400;
+    color: #db4444;
+    background: none;
+    transition: opacity 0.3s ease;
+
+    &:hover {
+      background: none;
+      opacity: 0.7;
+    }
+
+    @media (max-width: 575px) {
+      margin-left: 10px;
+    }
+  }
+
+  &__restore-pass {
+    min-width: 290px;
+  }
+
+  &__text-content {
+    margin-top: 20px;
+
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #000;
+
+    p {
+      margin-top: 24px;
+
+      b {
+        font-weight: 700;
+      }
+
+      a {
+        font-weight: 700;
+        color: #6e860b;
+      }
+
+      &:first-child {
+        margin-top: 0;
+        margin-bottom: 25px;
+
+        font-size: 20px;
+        font-weight: 400;
+        line-height: 24px;
+
+        b {
+          color: #6e860b;
+        }
+      }
+    }
+
+    @media (max-width: 374px) {
+      font-size: 14px;
+
+      p {
+        &:first-child {
+          margin-bottom: 20px;
+          font-size: 16px;
+          line-height: 1.5;
+        }
+      }
+    }
+  }
+
+  &__close {
+    position: absolute;
+    top: 45px;
+    right: 45px;
+    z-index: 10;
+    border: 0;
+    width: 45px;
+    height: 45px;
+
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    path {
+      stroke: #1a1a1a;
+      stroke-width: 1px;
+    }
+
+    @media (max-width: 1199px) {
+      top: 10px;
+      right: 10px;
+    }
+
+    @media (max-width: 767px) {
+      top: 0;
+      right: 0;
+    }
+  }
+
+  &.open {
+    visibility: visible;
+    opacity: 1;
+
+    .modal__curtain {
+      transform: translate(0);
+      opacity: 1;
+    }
+  }
+
+  &--stepped {
+    &.open {
+      .modal__curtain {
+        transform: translateX(100%);
+        opacity: 0;
+
+        &.active {
+          transform: translate(0);
+          opacity: 1;
+        }
+      }
+    }
+  }
+}

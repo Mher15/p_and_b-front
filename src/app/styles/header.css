@@ -1,0 +1,90 @@
+.header {
+    display: flex;    
+    justify-content: center;
+    align-content: center;
+}
+
+.header-content {
+    width: 80%;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: max-content 1fr max-content max-content;
+}
+
+.main-logo {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-content: center;
+}
+
+.logo {
+    display: grid;
+}
+
+.main-logo-title {
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    color: #000;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Roboto;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    white-space: nowrap
+}
+
+.basket-icon-container {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    justify-content: center;
+    align-content: center;
+}
+
+.basket-icon-count-text {
+    color: #FFF;
+    text-align: center;
+    font-family: Roboto;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.basket-icon {
+    display: grid;
+    justify-content: center;
+    align-content: center;
+}
+
+.profile-panel {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+    justify-items: center;
+    align-items: center;
+}
+
+.profile-icon {
+    display: grid;
+    justify-content: center;
+    align-content: center;
+}
+
+.company-phone {
+    display: grid;
+    grid-template-columns: 1fr max-content;
+    justify-content: center;
+    align-content: center;
+    gap: 5px;
+}
+
+.phone {
+    display: grid;
+    color: #6E860B;
+    justify-content: center;
+    align-content: center;
+}

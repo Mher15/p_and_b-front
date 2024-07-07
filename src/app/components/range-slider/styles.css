@@ -1,0 +1,24 @@
+.rc-slider {
+  margin-top: 20px;
+}
+
+.rc-slider-handle {
+  height: 18px;
+  width: 18px;
+  background: url("../../../assets/input-pointer.svg");
+}
+
+.rc-slider-track {
+  height: 6px;
+  border-radius: 6px;
+  background: var(--green-bp, #b3db11);
+}
+
+.price-range-title {
+  color: var(--Gray-Scale-Gray-900, #1a1a1a);
+  font-family: Roboto;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%;
+}

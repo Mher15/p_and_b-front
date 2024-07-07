@@ -1,0 +1,161 @@
+$primary-color: #28a745;
+$primary-hover-color: darken($primary-color, 10%);
+$border-radius: 8px;
+$input-border-color: #ccc;
+$background-color: #f9f9f9;
+$toggle-header-background: #f1f1f1;
+$main-color: #b3db11;
+
+.coapplicant-form {
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+
+  @media(max-width:792px) {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+  }
+
+  @media(max-width:576px) {
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+
+    input {
+      width: 100%;
+      padding: 14px 30px;
+      border: 1px solid $input-border-color;
+      border-radius: 50px;
+    }
+  }
+
+  .save_button[type="submit"] {
+    width: 100%;
+    border-radius: 50px;
+    color: #b3db11;
+    background-color: white;
+    border: 1px solid #b3db11;
+    cursor: pointer;
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    height: 50px;
+    transition: border-color 0.3s ease, color 0.3s ease, background-color 0.3s ease;
+    font-weight: 700;
+
+    &:hover {
+      color: #fff;
+      background-color: $main-color;
+    }
+  }
+}
+
+.coapplicant-container {
+  max-width: 800px;
+
+  .coapplicant-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .coapplicant-toggle {
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+
+      img {
+        width: 15px;
+        margin-left: 10px;
+      }
+
+      span {
+        font-size: 16px;
+        font-weight: bold;
+
+        &.toggle-icon {
+          font-size: 20px;
+        }
+      }
+    }
+
+    .coapplicant-info {
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: $main-color;
+      text-decoration: none;
+      font-size: 14px;
+      gap: 10px;
+
+      span {
+        border-bottom: 1px solid $main-color;
+        padding-bottom: 0.2px;
+      }
+
+      svg {
+        width: 15px;
+        fill: #76c510;
+      }
+    }
+
+    .tooltip {
+      position: relative;
+      overflow: hidden;
+
+      &:hover {
+        overflow: visible;
+
+        .tooltip-content {
+          opacity: 1;
+        }
+      }
+
+      .tooltip-content {
+        background: $main-color;
+        box-sizing: border-box;
+        color: white;
+        font-size: 15px;
+        line-height: 1.2;
+        letter-spacing: 1px;
+        max-width: 200px;
+        min-width: 175px;
+        padding: 1em;
+        position: absolute;
+        opacity: 0;
+        transition: all .3s ease;
+        border-radius: 10px;
+        z-index: 10;
+
+        &::after {
+          background: $main-color;
+          content: "";
+          height: 10px;
+          position: absolute;
+          transform: rotate(45deg);
+          width: 10px;
+        }
+      }
+
+      &.top {
+        .tooltip-content {
+          bottom: calc(100% + 1.5em);
+          left: 50%;
+          transform: translateX(-50%);
+
+          &::after {
+            bottom: -5px;
+            left: 50%;
+            margin-left: -5px;
+          }
+        }
+      }
+    }
+  }
+}

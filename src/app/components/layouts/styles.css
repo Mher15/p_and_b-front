@@ -1,0 +1,13 @@
+.page-layout {
+  height: 100%;
+  overflow: scroll;
+  min-width: 375px;
+  min-height: 0px;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  margin: 0px;
+}
+
+.page-layout::-webkit-scrollbar {
+  display: none;
+}
