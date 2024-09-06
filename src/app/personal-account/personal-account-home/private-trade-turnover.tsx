@@ -1,11 +1,22 @@
 import { useFetchPrivateTradeTurnoverQuery } from "../../../features/api/personal-account-api-slice";
 
-interface IPrivateTradeTurnoverProps {
+interface Props {
   referralId: string;
+  office:{
+    lo:number,
+    go:number,
+    ot:number,
+    activePartners:number
+    myNewRefers:number
+    myRefers:number
+    newRefers:number
+    totalPartners:number
+    role:string
+  }
 }
 export const PrivateTradeTurnover = ({
-  referralId,
-}: IPrivateTradeTurnoverProps) => {
+  referralId,office
+}: Props) => {
   const { data: privateTradeTurnover } =
     useFetchPrivateTradeTurnoverQuery(referralId);
 
@@ -17,7 +28,7 @@ export const PrivateTradeTurnover = ({
           <span className="business_data_box">ЛО</span>
           <div className="line"></div>
           <div className="business_data_box_text">
-            <span className="count">2 500 </span>
+            <span className="count">{office?.lo}</span>
             <span>VP</span>
           </div>
         </div>
@@ -25,7 +36,7 @@ export const PrivateTradeTurnover = ({
           <span className="business_data_box">ГО</span>
           <div className="line"></div>
           <div className="business_data_box_text">
-            <span className="count">7 896 </span>
+            <span className="count">{office?.go}</span>
             <span>VP</span>
           </div>
         </div>
@@ -33,14 +44,14 @@ export const PrivateTradeTurnover = ({
           <span className="business_data_box">ОТ</span>
           <div className="line"></div>
           <div className="business_data_box_text">
-            <span className="count">287 930 </span>
+            <span className="count">{office?.ot}</span>
             <span>VP</span>
           </div>
         </div>
         <div>
           <span className="business_data_box">Квалификация</span>
           <div className="line"></div>
-          <span className="last_span">Pr T</span>
+          <span className="last_span">{office?.role}</span>
         </div>
       </div>
       {/* <b>{`${privateTradeTurnover} PV`}</b> */}

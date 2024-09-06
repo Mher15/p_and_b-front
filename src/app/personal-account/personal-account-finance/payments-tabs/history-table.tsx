@@ -2,8 +2,6 @@ import "../../../scss/blocks/_lk.scss";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const HistoryTable = ({tableData, tableHeaders}: any) => {
-    console.log("aaaaaaaaaaaaaaa");
-    
   return (
     <div className="lk__info-table">
       <div className="lk__table-wrapper">

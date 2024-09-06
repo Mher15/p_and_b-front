@@ -1,8 +1,9 @@
 import styled from "styled-components";
-import { useFetchMentorBonusQuery } from "../../../features/api/personal-account-api-slice";
 
 interface IMentorBonusProps {
   referralId: string;
+  gift:any
+  finance:any
 }
 
 const MentorBonusContent = styled.div`
@@ -11,41 +12,27 @@ const MentorBonusContent = styled.div`
   align-items: center;
 `;
 
-export const MentorBonus = ({ referralId }: IMentorBonusProps) => {
-  const { data: partnerCount } = useFetchMentorBonusQuery(referralId);
+export const MentorBonus = ({ referralId,gift,finance }: IMentorBonusProps) => {
 
   return (
     <article className="lk__stats-item">
-      <h3 className="title title--sm">Счет вознаграждения</h3>
+      <h3 className="title title--sm">Мои счета</h3>
       <div className="business_data">
         <div>
-          <span className="business_data_box">ЛО</span>
+          <span className="business_data_box">Счет вознаграждения</span>
           <div className="line"></div>
           <div className="business_data_box_text">
-            <span className="count">2 500 </span>
-            <span>VP</span>
+            <span className="count">{finance?.availableRewardAccount ? finance?.availableRewardAccount : 0}</span>
+            <span>₽</span>
           </div>
         </div>
         <div>
-          <span className="business_data_box">ГО</span>
+          <span className="business_data_box">Gift (подарочный счет)</span>
           <div className="line"></div>
           <div className="business_data_box_text">
-            <span className="count">7 896 </span>
-            <span>VP</span>
+            <span className="count">{finance?.availableGift ? finance?.availableGift : 0} </span>
+            <span>₽</span>
           </div>
-        </div>
-        <div>
-          <span className="business_data_box">ОТ</span>
-          <div className="line"></div>
-          <div className="business_data_box_text">
-            <span className="count">287 930 </span>
-            <span>VP</span>
-          </div>
-        </div>
-        <div>
-          <span className="business_data_box">Квалификация</span>
-          <div className="line"></div>
-          <span className="last_span">Pr T</span>
         </div>
       </div>
       {/* <MentorBonusContent>

@@ -13,7 +13,7 @@ import { CoApplicantData } from "../co-applicant-data/co-applicant-data";
 
 const getLink = (pathname: string, locale: string) => {
   const pathArr = pathname.split("/").filter((part) => !isEmpty(part));
-  const path = pathArr[1] ? pathArr[1] : null;
+  const path = pathArr[pathArr.length -1] ? pathArr[pathArr.length -1] : null;
   switch (`${path}`) {
     case personalAccountRoutes.REFERRAL_LINKS:
       return {
@@ -45,11 +45,27 @@ const getLink = (pathname: string, locale: string) => {
         to: personalAccountRoutes.STATEMENT,
         translate: translate("links.personalAccount.statement", locale),
       };
+    case personalAccountRoutes.SYSTEM:
+      return {
+        to: personalAccountRoutes.SYSTEM,
+        translate: translate("links.personalAccount.system", locale),
+      };
+    case personalAccountRoutes.MY_ORDERS:
+      return {
+        to: personalAccountRoutes.MY_ORDERS,
+        translate: translate("links.personalAccount.orders", locale),
+      };
     case financeAccountRoutes.FINANCE_BALANCE:
       return {
         to: financeAccountRoutes.FINANCE_BALANCE,
         translate: translate("links.personalAccount.balance", locale),
       };
+    case personalAccountRoutes.CLIENTS:
+      return {
+        to: personalAccountRoutes.CLIENTS,
+        translate: translate("links.personalAccount.clients", locale),
+      };
+
       case financeAccountRoutes.FINANCE_TRANSACTIONS:
         return{
           to: financeAccountRoutes.FINANCE_TRANSACTIONS,
@@ -95,9 +111,6 @@ export const LeftSide = () => {
             <h1 className="title lk__main-title">{link.translate}</h1>
           </div>
           <Outlet />
-          {pathname === "/personal-account/profile" && (
-            <CoApplicantData />
-          )}
         </div>
       </aside>
     )

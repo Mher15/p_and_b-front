@@ -53,6 +53,22 @@
     }
   }
 
+  &__product-count{
+    display: flex;
+    gap: 10px;
+    input{
+      width: 60px;
+    }
+    button{
+      padding: 0 30px;
+      border: none ;
+      height: 40px;
+      border-radius: 20px;
+      background-color: #b3db11;
+      color: white;
+    }
+  }
+
   &__pagination {
     .swiper-pagination-bullet {
       margin: 0 4px;

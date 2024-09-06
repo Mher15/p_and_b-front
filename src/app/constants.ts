@@ -12,10 +12,18 @@ export const appRoutes = {
   REGISTRATION: "/registration",
   PERSONAL_ACCOUNT: "/personal-account",
   BUSINESS: "/business",
+  FINANCE: "/finance",
+  CLIENTS: "/clients",
+  STATEMENT: "/statement",
+  SYSTEM:"/system",
+  MY_ORDERS:"/orders",
+  FINANCE_BALANCE: "/balance",
   PUBLIC_OFFER: "/public-offer",
   TERMS_OF_PAYMENT: "/terms-of-payment",
   PRIVACY_POLICY: "/privacy-policy",
   PAYMENT_PAGE: "/payment-page",
+  TRANSACTION: "/transactions",
+  PAYMENTS: "/payments",
   CONTACTS: "/contacts",
   PAYMENT_RULES: "/payment-rules",
   PURCHASE_RETURNS: "/purchase-returns",
@@ -36,6 +44,7 @@ export const endpointsTags = {
   PROFILE: "PROFILE",
   MARKETING: "MARKETING",
   DOCUMENT: "DOCUMENT",
+  FINANCE:"FINANCE"
 };
 
 export const DASH = "&nbsp;";

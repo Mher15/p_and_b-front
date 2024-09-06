@@ -95,7 +95,7 @@ export const Marketing = () => {
         </Form.Item>
         <Divider />
         <Flex gap="middle" vertical>
-          <Title>Вознаграждение за личный оборот</Title>
+          <Title>Gift (подарочный счет)</Title>
           <Form.Item name="giftLevels" label="Уровни вознаграждения">
             <GiftLevelsInputs />
           </Form.Item>

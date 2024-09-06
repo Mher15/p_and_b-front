@@ -27,8 +27,7 @@ export const orderApiSlice = createApi({
   tagTypes: [ORDERS],
   endpoints: (builder) => ({
     fetchOrders: builder.query<IOrder[], number>({
-      query: () => "/",
-      providesTags: () => [ORDERS],
+      query: (userId) => `/${userId}`,
     }),
     fetchOrder: builder.query<IOrder, number>({
       query: (id) => `/${id}`,
@@ -53,7 +52,9 @@ export const orderApiSlice = createApi({
 
 export const {
   useFetchOrdersQuery,
-  useFetchOrderQuery,
+  useFetchOrderQuery, 
   useAddOrderMutation,
   useOrderPayMutation,
 } = orderApiSlice;
+
+

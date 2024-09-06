@@ -1,5 +1,6 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import profileReducer from "../features/profile/profile-slice";
+import structureReducer from "../features/structure/structure-slice"
 import groupModalReducer from "../features/modals/group-modal-slice";
 import documentModalReducer from "../features/modals/document-modal-slice";
 import brandModalReducer from "../features/modals/brand-modal-slice";
@@ -24,8 +25,12 @@ import { addressApiSlice } from "../features/api/address-api-slice";
 import { deliveryApiSlice } from "../features/api/delivery-api-slice";
 import { documentsApiSlice } from "../features/api/documents-api-slice";
 import { marketingApiSlice } from "../features/api/marketing-api-slice";
-import { orderApiSlice } from "../features/api/order-api-slice";
 import { personalAccountApiSlice } from "../features/api/personal-account-api-slice";
+import { officeApiSlice } from "../features/api/user-info-slice";
+import { myStructureApiSlice } from "../features/api/my-structure-api-slice";
+import { myGiftApiSlice } from "../features/api/my-gift-api-slice";
+import { orderApiSlice } from "../features/api/order-api-slice";
+import { ordersApiSlice } from "../features/api/orders-api-slice";
 
 const modalsReducer = combineReducers({
   groupModal: groupModalReducer,
@@ -39,6 +44,7 @@ export const store = configureStore({
   reducer: {
     profile: profileReducer,
     modals: modalsReducer,
+    structure: structureReducer,
     basket: basketReducer,
     uploader: uploaderReducer,
     registration: registrationReducer,
@@ -51,7 +57,10 @@ export const store = configureStore({
     [authApiSlice.reducerPath]: authApiSlice.reducer,
     [storeApiSlice.reducerPath]: storeApiSlice.reducer,
     [imagesApiSlice.reducerPath]: imagesApiSlice.reducer,
+    [myStructureApiSlice.reducerPath]: myStructureApiSlice.reducer,
     [userApiSlice.reducerPath]: userApiSlice.reducer,
+    [myGiftApiSlice.reducerPath]: myGiftApiSlice.reducer,
+    [officeApiSlice.reducerPath]: officeApiSlice.reducer,
     [favoriteProductsApiSlice.reducerPath]: favoriteProductsApiSlice.reducer,
     [referralLinksApiSlice.reducerPath]: referralLinksApiSlice.reducer,
     [addressApiSlice.reducerPath]: addressApiSlice.reducer,
@@ -59,6 +68,7 @@ export const store = configureStore({
     [deliveryApiSlice.reducerPath]: deliveryApiSlice.reducer,
     [marketingApiSlice.reducerPath]: marketingApiSlice.reducer,
     [orderApiSlice.reducerPath]: orderApiSlice.reducer,
+    [ordersApiSlice.reducerPath]: ordersApiSlice.reducer,
     [personalAccountApiSlice.reducerPath]: personalAccountApiSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
@@ -71,13 +81,17 @@ export const store = configureStore({
       imagesApiSlice.middleware,
       storeApiSlice.middleware,
       userApiSlice.middleware,
+      officeApiSlice.middleware,
       favoriteProductsApiSlice.middleware,
+      myStructureApiSlice.middleware,
       referralLinksApiSlice.middleware,
       addressApiSlice.middleware,
       documentsApiSlice.middleware,
+      myGiftApiSlice.middleware,
       deliveryApiSlice.middleware,
       marketingApiSlice.middleware,
       orderApiSlice.middleware,
+      ordersApiSlice.middleware,
       personalAccountApiSlice.middleware,
     ]),
 });

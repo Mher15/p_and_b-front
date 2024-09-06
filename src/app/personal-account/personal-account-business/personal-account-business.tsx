@@ -1,168 +1,217 @@
-import { useState } from "react";
-import { useFetchPartnersQuery } from "../../../features/api/personal-account-api-slice";
+import React, { useEffect, useState } from "react";
 import { useAppSelector } from "../../hooks";
 import { NotFound } from "../../pages/404";
+import { useFetchStructureQuery } from "../../../features/api/my-structure-api-slice";
+import moment from "moment";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../store";
+import {
+  setStructureData,
+  updateStructureData,
+} from "../../../features/structure/structure-slice";
+import { useFetchCountriesQuery } from "../../../features/api/address-api-slice";
+import { ICountry } from "../../types";
 import { Select } from "antd";
 
-export const PersonalAccountBusiness = () => {
-  const [data, setData] = useState([
+export const PersonalAccountBusiness = React.memo(() => {
+  const user = useAppSelector((state) => state.profile.user);
+  const id = user?.id ? user?.id : 0;
+  const { data: structure }: any = useFetchStructureQuery(id);
+  const dispatch: AppDispatch = useDispatch();
+  const { structureData, cloneStructure } = useSelector(
+    (state: RootState) => state.structure
+  );
+
+  const data = [
     {
-      lvl: 0,
-      name: "Trum Viktoria",
-      date: "17.09.2019",
-      id: "007-5531492",
-      city: "Novocherkask",
-      LO: 38.9,
-      GO: 264.1,
-      OT: 264.1,
-      status: "SV",
-      countPart: 1,
-      all: 0,
+      id: 0,
+      name: "Клиент",
+      value: "CLIENT",
     },
-    {
-      lvl: 0,
-      name: "Trum Viktoria",
-      date: "17.09.2019",
-      id: "007-5531492",
-      city: "Novocherkask",
-      LO: 38.9,
-      GO: 264.1,
-      OT: 264.1,
-      status: "SV",
-      countPart: 1,
-      all: 0,
-    },
-    {
-      lvl: 0,
-      name: "Trum Viktoria",
-      date: "17.09.2019",
-      id: "007-5531492",
-      city: "Novocherkask",
-      LO: 38.9,
-      GO: 264.1,
-      OT: 264.1,
-      status: "SV",
-      countPart: 1,
-      all: 0,
-    },
-    {
-      lvl: 0,
-      name: "Trum Viktoria",
-      date: "17.09.2019",
-      id: "007-5531492",
-      city: "Novocherkask",
-      LO: 38.9,
-      GO: 264.1,
-      OT: 264.1,
-      status: "SV",
-      countPart: 1,
-      all: 0,
-    },
-    {
-      lvl: 0,
-      name: "Trum Viktoria",
-      date: "17.09.2019",
-      id: "007-5531492",
-      city: "Novocherkask",
-      LO: 38.9,
-      GO: 264.1,
-      OT: 264.1,
-      status: "SV",
-      countPart: 1,
-      all: 0,
-    },
-    {
-      lvl: 0,
-      name: "Trum Viktoria",
-      date: "17.09.2019",
-      id: "007-5531492",
-      city: "Novocherkask",
-      LO: 38.9,
-      GO: 264.1,
-      OT: 264.1,
-      status: "SV",
-      countPart: 1,
-      all: 0,
-    },
-  ]);
-  const month = [
     {
       id: 1,
-      name: "Январь 2024",
-    },
-    {
-      id: 2,
-      name: "aaaaaaaa",
+      name: "Партнёр",
+      value: "PARTNER",
     },
   ];
-  const monthOptions = month.map((month: any) => ({
-    value: month.id,
-    label: month.name,
+
+  const qualificationOptions = data.map((item) => ({
+    value: item.value,
+    label: item.name,
   }));
-  const [date, setDate] = useState([
-    { date: "march 2024" },
-    { date: "dec 2023" },
-  ]);
+
+  const { data: countries = [], isLoading: isCountryLoading } =
+    useFetchCountriesQuery();
+
+  const countriesOptions = countries.map((country: ICountry) => ({
+    value: country.id,
+    label: country.name,
+  }));
+
   const [filterDate, setFilterDate] = useState(null);
   const [filter, setFilter] = useState({});
 
   const [filters, setFilters] = useState({
     fromDate: "",
     toDate: "",
-    qualification: "",
     phoneNumber: "",
     fromRegDate: "",
     toRegDate: "",
-    country: "",
     regPeriod: "",
     idOrName: "",
-    city: "",
-    city2: "",
-    allPartner: false,
+    country: "",
+    qualification: "",
   });
 
   const handleInputChange = (e: any, type?: string) => {
-    const values = month.find((elm) => {
-      if (elm.id == e) {
-        return elm;
-      }
-    });
     if (type) {
       setFilters((prevFilters) => ({
         ...prevFilters,
-        [type]: values?.name,
-      }));
-    } else {
-      const { id, value } = e.target;
-      setFilters((prevFilters) => ({
-        ...prevFilters,
-        [id]: value,
-        allPartner: e.target.checked,
+        [type]: e.target ?e.target.value  : String(e),
       }));
     }
-
-    console.log(filters)
   };
 
   const resetFilters = () => {
     setFilters({
       fromDate: "",
       toDate: "",
-      qualification: "",
       phoneNumber: "",
       fromRegDate: "",
       toRegDate: "",
-      country: "",
       regPeriod: "",
       idOrName: "",
-      city: "",
-      city2: "",
-      allPartner: false,
+      country: "",
+      qualification: "",
     });
   };
 
   const filterResults = () => {
-    console.log("Filters applied:", filters);
+    let filterData: any[] = cloneStructure;
+    let filtersValue = false;
+    let {
+      fromDate,
+      toDate,
+      phoneNumber,
+      fromRegDate,
+      toRegDate,
+      regPeriod,
+      idOrName,
+      country,
+      qualification,
+    } = filters;
+
+    console.log("filters", filters);
+
+    const formatPhoneNumber = (phoneNumber: any) => {
+      const cleaned = phoneNumber.replace(/\D/g, "");
+      if (cleaned.length <= 12) {
+        const match = cleaned.match(/(\d{1})(\d{3})(\d{3})(\d{2})(\d{2})/);
+        if (match) {
+          return `+${match[1]} (${match[2]}) ${match[3]}-${match[4]}-${match[5]}`;
+        }
+      }
+      return cleaned;
+    };
+
+    if (filters) {
+      if (fromDate !== "" && toDate === "") {
+        filterData = cloneStructure.filter(
+          (item: any) => item?.state?.lo >= fromDate
+        );
+      }
+      if (fromDate === "" && toDate !== "") {
+        filterData = cloneStructure.filter(
+          (item: any) => item?.state?.lo <= toDate
+        );
+      }
+      if (fromDate !== "" && toDate !== "") {
+        filterData = cloneStructure.filter(
+          (item: any) =>
+            item?.state?.lo <= toDate && item?.state?.lo >= fromDate
+        );
+      }
+
+      if (fromRegDate !== "" && toRegDate === "") {
+        if (filterData.length > 0) {
+          filterData = filterData.filter(
+            (item: any) => item?.state?.go >= fromRegDate
+          );
+        }
+      }
+      if (fromRegDate === "" && toRegDate !== "") {
+        if (filterData.length > 0) {
+          filterData = filterData.filter(
+            (item: any) => item?.state?.go <= toRegDate
+          );
+        }
+      }
+      if (fromRegDate !== "" && toRegDate !== "") {
+        if (filterData.length > 0) {
+          filterData = filterData.filter(
+            (item: any) =>
+              item?.state?.go <= toRegDate && item?.state?.go >= fromRegDate
+          );
+        }
+      }
+
+      if (idOrName !== "") {
+        if (filterData.length > 0) {
+          filterData = filterData.filter(
+            (item: any) =>
+              item.referralId === idOrName || item.name === idOrName
+          );
+        }
+      }
+
+      if (phoneNumber !== "") {
+        if (filterData.length > 0) {
+          filterData = filterData.filter(
+            (item: any) => item.phone === formatPhoneNumber(phoneNumber)
+          );
+        }
+      }
+
+      if (regPeriod !== "") {
+        if (filterData.length > 0) {
+          filterData = filterData.filter((item: any) =>
+            item?.createdAt !== null
+              ? item?.createdAt.split("T")[0] === regPeriod
+              : ""
+          );
+        }
+      }
+
+      if (country !== "") {
+        if (filterData.length > 0) {
+          filterData = filterData.filter(
+            (item: any) => item.countryId === +country
+          );
+        }
+      }
+
+      if(qualification !== ""){
+        if (filterData.length > 0) {
+          filterData = filterData.filter(
+            (item: any) => item.role === qualification
+          );
+        }
+      }
+
+      Object.entries(filters).map(([key, value]) => {
+        if (value !== "") {
+          filtersValue = true;
+        }
+      });
+
+      if (!filtersValue) {
+        filterData = cloneStructure;
+      }
+
+      console.log(filterData);
+
+      dispatch(updateStructureData(filterData));
+    }
   };
 
   const showAll = () => {
@@ -175,9 +224,20 @@ export const PersonalAccountBusiness = () => {
   const selectDate = (e: any) => {
     setFilterDate(e.target.innerText);
   };
-  const user = useAppSelector((state) => state.profile.user);
-  const referralId = user?.referralId || "0";
-  const { data: partners = [] } = useFetchPartnersQuery(referralId);
+
+  const genStructure = (cloneData: any, depth: number[]) => {
+    cloneData?.map((item: any) => {
+      dispatch(setStructureData(item));
+
+      item?.myRefers?.length > 0 ? genStructure(item.myRefers, depth) : "";
+    });
+  };
+
+  useEffect(() => {
+    if (structure && structureData.length < 1) {
+      genStructure(structure, []);
+    }
+  }, [structure]);
 
   if (!user) return <NotFound />;
   return (
@@ -200,10 +260,11 @@ export const PersonalAccountBusiness = () => {
               <input
                 className="limite"
                 type="number"
+                min={1}
                 id="fromDate"
                 placeholder="от"
                 value={filters.fromDate}
-                onChange={(e) => handleInputChange(e)}
+                onChange={(e) => handleInputChange(e, "fromDate")}
               />
               <input
                 className="limite"
@@ -211,18 +272,18 @@ export const PersonalAccountBusiness = () => {
                 id="toDate"
                 placeholder="до"
                 value={filters.toDate}
-                onChange={(e) => handleInputChange(e)}
+                onChange={(e) => handleInputChange(e, "toDate")}
               />
             </div>
             <div className="div12" style={{ display: "flex" }}>
-              <label htmlFor="fromRegDate">СГО</label>
+              <label htmlFor="fromRegDate">ГО</label>
               <input
                 className="limite"
                 type="number"
                 id="fromRegDate"
                 placeholder="от"
                 value={filters.fromRegDate}
-                onChange={(e) => handleInputChange(e)}
+                onChange={(e) => handleInputChange(e, "fromRegDate")}
               />
               <input
                 className="limite"
@@ -230,7 +291,7 @@ export const PersonalAccountBusiness = () => {
                 id="toRegDate"
                 placeholder="до"
                 value={filters.toRegDate}
-                onChange={(e) => handleInputChange(e)}
+                onChange={(e) => handleInputChange(e, "toRegDate")}
               />
             </div>
             <div className="div1">
@@ -239,13 +300,13 @@ export const PersonalAccountBusiness = () => {
                 id="idOrName"
                 placeholder="Введите ID или фамилию"
                 value={filters.idOrName}
-                onChange={(e) => handleInputChange(e)}
+                onChange={(e) => handleInputChange(e, "idOrName")}
               />
             </div>
             <div className="div2">
               <Select
                 style={{ width: "100%", height: "50px" }}
-                options={monthOptions}
+                options={qualificationOptions}
                 placeholder={"Квалификация"}
                 value={
                   filters.qualification ? filters.qualification : "Квалификация"
@@ -258,23 +319,27 @@ export const PersonalAccountBusiness = () => {
                 type="number"
                 id="phoneNumber"
                 placeholder="Введите номер телефона"
-                value={filters.phoneNumber}
-                onChange={(e) => handleInputChange(e)}
+                value={
+                  filters.phoneNumber
+                    ? filters.phoneNumber
+                    : "Введите номер телефона"
+                }
+                onChange={(e) => handleInputChange(e, "phoneNumber")}
               />
             </div>
             <div className="div4">
               <Select
-                style={{  width: "100%", height: "50px" }}
-                options={monthOptions}
+                style={{ width: "100%", height: "50px" }}
+                options={countriesOptions}
                 placeholder={"Страна"}
-                value={filters.country ? filters.country : "Страна"}
                 onChange={(e) => handleInputChange(e, "country")}
               />
             </div>
             <div className="div5">
-              <Select
-                style={{  width: "100%", height: "50px" }}
-                options={monthOptions}
+              <input
+                type="date"
+                id="regDate"
+                style={{ width: "100%", height: "50px" }}
                 placeholder={"Период регистрации"}
                 value={
                   filters.regPeriod ? filters.regPeriod : "Период регистрации"
@@ -282,24 +347,7 @@ export const PersonalAccountBusiness = () => {
                 onChange={(e) => handleInputChange(e, "regPeriod")}
               />
             </div>
-            <div className="div6">
-              <Select
-                style={{  width: "100%", height: "50px"}}
-                options={monthOptions}
-                placeholder={"Населенный пункт"}
-                value={filters.city ? filters.city : "Населенный пункт"}
-                onChange={(e) => handleInputChange(e, "city")}
-              />
-            </div>
-            <div className="div7">
-              <Select
-                style={{  width: "100%", height: "50px" }}
-                options={monthOptions}
-                placeholder={"Населенный пункт 2"}
-                value={filters.city2 ? filters.city2 : "Населенный пункт 2"}
-                onChange={(e) => handleInputChange(e, "city2")}
-              />
-            </div>
+
             <div className="buttons div8">
               <button className="filter-button" onClick={filterResults}>
                 Фильтровать
@@ -310,43 +358,27 @@ export const PersonalAccountBusiness = () => {
                 Сбросить фильтр
               </button>
             </div>
-            <div className="checkbox_buttons div10">
-              <input
-                type="checkbox"
-                id="allPartner"
-                value=""
-                onChange={(e) => handleInputChange(e)}
-              />
-              <label htmlFor="allPartner">
-                Отображать всех
-              </label>
-            </div>
           </div>
         </div>
       )}
       <div className="lk__exel_form">
         <div className="date_form">
-          <div className="date_form_main_section">
-            <div>
+          {/* <div className="date_form_main_section"> */}
+            {/* <div>
               <span>Период:</span>
             </div>
             <div className="date_form_select">
               <span>{filterDate ? filterDate : "Май 2024"} </span>
-              <img src="/images/icons/arrow-down.svg" alt="" />
-              <div className="date_form_selsect_menu">
+              <img src="/images/icons/arrow-down.svg" alt="" /> */}
+              {/* <div className="date_form_selsect_menu">
                 {date.map((elm, index) => (
                   <div key={index} onClick={(e) => selectDate(e)}>
                     {elm.date}
                   </div>
                 ))}
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="registration_date">
-          <label htmlFor="radio"> Дата:</label>
-          <input type="radio" id="radio" />
-          <span>Регистрации</span>
+              </div> */}
+            {/* </div> */}
+          {/* </div> */}
         </div>
       </div>
       <div className="lk__tabs-contents">
@@ -357,9 +389,9 @@ export const PersonalAccountBusiness = () => {
                 <thead>
                   <tr className="lk__table-item">
                     <th>Ур.</th>
-                    <th>Фамилия Имя (Всего партнеров) </th>
-                    <th> </th>
-                    <th>Дата (PV) </th>
+                    <th colSpan={7}>Фамилия Имя (Всего партнеров) </th>
+                    <th></th>
+                    <th>Дата</th>
                     <th>ID</th>
                     <th>Город</th>
                     <th>ЛО,vp</th>
@@ -371,52 +403,80 @@ export const PersonalAccountBusiness = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {data.map((item, index) => (
-                    <tr key={index}>
-                      <td>{item.lvl}</td>
-                      <td>{item.name}</td>
-                      <td style={{ display: "flex", gap: "5px" }}>
-                        <div>
-                          <a href="">
-                            <img
-                              style={{ width: "20px" }}
-                              src="/images/icons/telegram-blue.svg"
-                              alt=""
-                            />
-                          </a>
-                        </div>
-                        <div>
-                          <a href="">
-                            <img
-                              style={{ width: "20px" }}
-                              src="/images/icons/whatsapp-green.svg"
-                              alt=""
-                            />
-                          </a>
-                        </div>
-                        <div>
-                          <a href="">
-                            <img
-                              style={{ width: "20px" }}
-                              src="/images/icons/phone-3114.svg"
-                              alt=""
-                            />
-                          </a>
-                        </div>
-                      </td>
-                      <td>{item.date}</td>
-                      <td style={{ textWrap: "nowrap", color: "#b3db11" }}>
-                        {item.id}
-                      </td>
-                      <td>{item.city}</td>
-                      <td>{item.LO}</td>
-                      <td>{item.GO}</td>
-                      <td>{item.OT}</td>
-                      <td>{item.status}</td>
-                      <td>{item.countPart}</td>
-                      <td>{item.all}</td>
-                    </tr>
-                  ))}
+                  {structureData?.map((item: any) => {
+                    if (item.role === "PARTNER") {
+                      return (
+                        <tr key={item.id}>
+                          <td>{/* {depth.length - 1} */}</td>
+                          <td>
+                            <span>
+                              {/* {depth.length > 1 &&
+                               depth?.map((refDepth, index) => {
+                                 return index > 0 && <span key={index}>+</span>;
+                               })} */}
+                            </span>
+                          </td>
+                          <td>
+                            <span>{item?.name}</span>
+                            <span>{item?.lastName}</span>
+                          </td>
+                          <td>
+                            <span>
+                              {item?.myRefers?.length > 0 &&
+                                `(${item?.myRefers?.length})`}
+                            </span>
+                          </td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td style={{ display: "flex", gap: "5px" }}>
+                            <div>
+                              <a href="">
+                                <img
+                                  style={{ width: "20px" }}
+                                  src="/images/icons/telegram-blue.svg"
+                                  alt=""
+                                />
+                              </a>
+                            </div>
+                            <div>
+                              <a href="">
+                                <img
+                                  style={{ width: "20px" }}
+                                  src="/images/icons/whatsapp-green.svg"
+                                  alt=""
+                                />
+                              </a>
+                            </div>
+                            <div>
+                              <a href={`tel:${item?.phone}`}>
+                                <img
+                                  style={{ width: "20px" }}
+                                  src="/images/icons/phone-3114.svg"
+                                  alt=""
+                                />
+                              </a>
+                            </div>
+                          </td>
+                          <td>
+                            {moment(item?.createdAt).format("DD.MM.YYYY")}
+                          </td>
+                          <td style={{ textWrap: "nowrap", color: "#b3db11" }}>
+                            {item?.referralId}
+                          </td>
+                          <td>{item?.state?.city}</td>
+                          <td>{item?.state?.lo}</td>
+                          <td>{item?.state?.go}</td>
+                          <td>{item?.state?.ot}</td>
+                          <td>{item?.role}</td>
+                          <td>{item?.state?.newActivePartners}</td>
+                          <td>{item?.state?.activePartners}</td>
+                        </tr>
+                      );
+                    }
+                  })}
+                  {/* <>{structure ? genStructure(structure, []) : ""}</> */}
                 </tbody>
               </table>
             </div>
@@ -425,4 +485,4 @@ export const PersonalAccountBusiness = () => {
       </div>
     </div>
   );
-};
+});

@@ -16,7 +16,13 @@ const basketSlice = createSlice({
     addToBasket(state, action: PayloadAction<BasketRow>) {
       const count = action.payload.count || 1;
       const product = action.payload.product;
-      state.rows.push({ product, count });
+      const existingRow = state.rows.find((elm) => elm.product.id === product.id);
+      
+      if (existingRow) {
+        existingRow.count += count; 
+      } else {
+        state.rows.push({ product, count });
+      }
     },
     deleteFromBasket(state, action: PayloadAction<BasketRow>) {
       state.rows = state.rows.filter(

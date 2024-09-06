@@ -1,20 +1,24 @@
 import { Link } from "react-router-dom";
 import { appRoutes } from "../../../constants";
-import { ICatalogProduct } from "../../../types";
+// import { ICatalogProduct } from "../../../types";
 import { useState } from "react";
 import { addToBasket } from "../../../../features/basket/basket-slice";
 import { useAppDispatch } from "../../../hooks";
 
 interface IProductPageControlsProps {
-  product: ICatalogProduct;
+  product: any;
 }
 
 export const ProductPageControls = ({ product }: IProductPageControlsProps) => {
   const dispatch = useAppDispatch();
-  const [count, setCount] = useState(5);
+  const [count, setCount] = useState(1);
 
   const countMinus = () => {
-    if (count > 0) setCount(count - 1);
+    if (count <= 1){
+      return
+    }else{
+      setCount(count - 1);
+    } 
   };
   const countPlus = () => {
     setCount(count + 1);

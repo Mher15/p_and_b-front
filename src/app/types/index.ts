@@ -376,7 +376,7 @@ export interface ICountry {
 export interface IDate {
   id: number;
   name: string;
-  value:string;
+  value: string;
 }
 
 export interface IRegion {
@@ -547,7 +547,10 @@ export interface IPersonalAccountClient {
   lastName: string;
   referralId: string;
   privateTradeTurnover: number;
-  mentor: IMentorDto;
+  mentor: IMentorDto | any;
+  createdAt: string;
+  email:string;
+  phone:string;
 }
 
 export interface IPersonalAccountPartner {

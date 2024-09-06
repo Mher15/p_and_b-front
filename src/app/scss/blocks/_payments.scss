@@ -2,13 +2,13 @@
 
 .requestForPayments {
     .paymentExpiredStatus {
-       background-color: $lightgray2;
-       padding: 50px 100px;
-       color: $textColor1;
-       font-size: 14px;
-       display: flex;
-       justify-content: center;
-       align-items: center;
+        background-color: $lightgray2;
+        padding: 50px 100px;
+        color: $textColor1;
+        font-size: 14px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     .submitApplication {
@@ -33,10 +33,16 @@
                 display: flex;
                 flex-direction: column;
                 align-items: flex-end;
+
                 >h3 {
                     color: $green;
                     font-size: 34px;
+
+                    @media (max-width: 670px) {
+                        font-size: 20px;
+                    }
                 }
+
                 >small {
                     font-size: 18px;
                     color: $textColor1;
@@ -55,6 +61,11 @@
                 cursor: pointer;
                 transition: .5s;
 
+                @media (max-width: 670px) {
+                    font-size: 12px;
+                    padding: 4px 10px;
+                }
+
                 &:hover {
                     transform: scale(1.05);
                 }
@@ -66,6 +77,8 @@
             background-color: $lightgray;
             padding: 50px;
             display: flex;
+            flex-wrap: wrap;
+
 
             >.paymentFormInfo {
                 display: flex;
@@ -81,26 +94,36 @@
                 display: flex;
                 align-items: center;
                 grid-gap: 10px;
+                flex-wrap: wrap;
 
                 >input {
-                   border: none;
-                   outline: none;
-                   border-radius: 50px;
-                   background-color: #fff;
-                   padding: 13px 20px;
+                    border: none;
+                    outline: none;
+                    border-radius: 50px;
+                    background-color: #fff;
+                    padding: 13px 20px;
                 }
 
                 >button {
-                   border: none;
-                   border-radius: 50px;
-                   padding: 13px 20px;
-                   cursor: pointer;
+                    border: none;
+                    border-radius: 50px;
+                    padding: 13px 20px;
+                    cursor: pointer;
 
-                   &:disabled {
-                    cursor: auto;
-                   }
+                    &:disabled {
+                        cursor: auto;
+                    }
+
+                    @media (max-width: 632px) {
+                        padding: 10px 15px;
+                    }
                 }
             }
+        }
+
+        @media (max-width: 1050px) {
+            flex-wrap: wrap;
+            justify-content: center;
         }
     }
 
@@ -124,6 +147,7 @@
             display: flex;
             align-items: center;
             grid-gap: 30px;
+            flex-wrap: wrap;
 
             >div {
                 >label {
@@ -135,14 +159,16 @@
                 display: flex;
                 align-items: center;
                 grid-gap: 10px;
+                flex-wrap: wrap;
 
-               >select {
-                border: none;
-                outline: none;
-                padding: 5px 10px;
-                width: 250px;
-                border-bottom: 2px solid $lightgray;
-               }
+
+                >select {
+                    border: none;
+                    outline: none;
+                    padding: 5px 10px;
+                    width: 250px;
+                    border-bottom: 2px solid $lightgray;
+                }
             }
 
             >.sum {
@@ -154,6 +180,7 @@
                     display: flex;
                     align-items: center;
                     grid-gap: 20px;
+                    flex-wrap: wrap;
 
                     >input {
                         padding: 5px;
@@ -169,21 +196,16 @@
                     }
                 }
             }
+
         }
 
     }
 }
 
 .recievePayments {
-    >h2 {
+    >h2 {}
 
-    }
+    .recievePaymentsInfo {}
 
-    .recievePaymentsInfo {
-
-    }
-
-    .recievePaymentsTabs {
-        
-    }
+    .recievePaymentsTabs {}
 }

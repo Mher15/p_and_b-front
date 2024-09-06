@@ -78,6 +78,46 @@ const getLink = (pathname: string, locale: string) => {
         to: appRoutes.BUSINESS,
         translate: translate("links.business", locale),
       };
+    case appRoutes.CLIENTS:
+      return {
+        to: appRoutes.CLIENTS,
+        translate: translate("links.clients", locale),
+      };
+    case appRoutes.PAYMENTS:
+      return {
+        to: appRoutes.PAYMENTS,
+        translate: translate("links.payments", locale),
+      };
+    case appRoutes.TRANSACTION:
+      return {
+        to: appRoutes.TRANSACTION,
+        translate: translate("links.transactions", locale),
+      };
+    case appRoutes.FINANCE:
+      return {
+        to: appRoutes.FINANCE,
+        translate: translate("links.finance", locale),
+      };
+    case appRoutes.FINANCE_BALANCE:
+      return {
+        to: appRoutes.FINANCE_BALANCE,
+        translate: translate("links.balance", locale),
+      };
+    case appRoutes.STATEMENT:
+      return {
+        to: appRoutes.STATEMENT,
+        translate: translate("links.statement", locale),
+      };
+    case appRoutes.SYSTEM:
+      return {
+        to: appRoutes.SYSTEM,
+        translate: translate("links.system", locale),
+      };
+    case appRoutes.MY_ORDERS:
+      return {
+        to: appRoutes.MY_ORDERS,
+        translate: translate("links.orders", locale),
+      };
     default:
       return {
         to: appRoutes.HOME,
@@ -89,15 +129,20 @@ const getLink = (pathname: string, locale: string) => {
 const PathLink = () => {
   const locale = useAppSelector((state) => state.profile.locale);
   const { pathname } = useLocation();
-  const paths = pathname.split('/')
-  let parentRout = ''
-  return paths.map((element,index) => {
-    const link: ILink = getLink('/' + element, locale);
-    if(index > 0){
-     parentRout+=link.to
-      return <Link to={parentRout}>{link.translate}</Link>
+  const paths = pathname.split("/");
+  let parentRout = "";
+  return paths.map((element, index) => {
+    const link: ILink = getLink("/" + element, locale);
+    if (index > 0) {
+      parentRout += link.to;
+      return (
+        <Link key={index} to={parentRout}>
+          {index > 1 ? "/" : ""}
+          {link.translate}
+        </Link>
+      );
     }
-  }); 
+  });
 };
 
 export const Breadcrumbs = ({ product }: IBreadcrumbsProps) => {
@@ -124,7 +169,9 @@ export const Breadcrumbs = ({ product }: IBreadcrumbsProps) => {
             </Link>
           </li>
           <li
-            className={`pagination__item path_link ${!group && !product ? "active" : ""}`}
+            className={`pagination__item path_link ${
+              !group && !product ? "active" : ""
+            }`}
           >
             <PathLink />
           </li>

@@ -1,49 +1,48 @@
-import StarIcon from "../../../../public/images/icons/star.svg";
-import WarningIcon from "../../../../public/images/icons/warning-icon.svg";
+import StarIcon from '../../../../public/images/icons/star.svg'
+import WarningIcon from '../../../../public/images/icons/warning-icon.svg'
 
-export const StatementFinances = () => {
+export const StatementFinances = ({ gift,finance }: any) => {
   return (
-    <div className="main-finances">
-        <div className="ambassador">
-          <div className="white-block">
-            <p>60</p>
-            <hr />
-            <p>--</p>
-            <img src={StarIcon} alt="star" />
-          </div>
-          <div className="statement-block-title">
-            <p>Амбассадор</p>
-            <img src={WarningIcon} alt="warning icon" />
-          </div>
-          <div className="white-block">
-            <p>200</p>
-            <hr />
-            <p>--</p>
-            <img src={StarIcon} alt="star" />
-          </div>
+    <div className='main-finances'>
+      <div className='ambassador'>
+        <div className='white-block'>
+          <p>{gift?.marketing?.mentorBonusLevel}</p>
+          <hr />
+          <p>{gift?.abusador1}</p>
+          <img src={StarIcon} alt='star' />
         </div>
-      <div className="statement-finances">
-        <div className="statement-finances-header">Финансы</div>
-        <div className="finance-blocks">
+        <div className='statement-block-title'>
+          <p>Амбассадор</p>
+          <img src={WarningIcon} alt='warning icon' />
+        </div>
+        <div className='white-block'>
+          <p>{gift?.marketing?.rewardsLevel}</p>
+          <hr />
+          <p>{gift?.abusador2}</p>
+          <img src={StarIcon} alt='star' />
+        </div>
+      </div>
+      <div className='statement-finances'>
+        <div className='statement-finances-header'>Финансы</div>
+        <div className='finance-blocks'>
           <div>
             <div>Gift (Подарочный счет)</div>
-            <div>13 720 ₽</div>
+            <div>{finance?.availableGift?finance?.availableGift: 0} ₽</div>
           </div>
           <div>
             <div>Счет возногрождений</div>
-            <div>36 678 ₽</div>
+            <div>{finance?.availableRewardAccount} ₽</div>
           </div>
           <div>
             <div>С начала 2024</div>
-            <div>453 720 ₽</div>
+            <div>{gift?.forYear ? Math.round(gift?.forYear) : 0} ₽</div>
           </div>
           <div>
             <div>Всего в Best & People</div>
-            <div>10 237 678 ₽</div>
+            <div>{gift?.forAllTyme ? Math.round(gift?.forAllTyme) : 0} ₽</div>
           </div>
         </div>
       </div>
-
     </div>
-  );
-};
+  )
+}

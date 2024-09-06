@@ -18,8 +18,9 @@ export const PersonalAccountClients = () => {
                 <thead>
                   <tr className="lk__table-item">
                     <th>Клиент</th>
-                    <th>ЛО (PV) </th>
-                    <th>Наставник</th>
+                    <th>Дата регистрации </th>
+                    <th>Почта </th>
+                    <th>Телефон </th>
                   </tr>
                 </thead>
                 <tbody>

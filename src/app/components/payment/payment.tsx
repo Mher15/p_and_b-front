@@ -34,12 +34,15 @@ export const Payment = () => {
   const { orderId: orderIdStr } = useParams();
   const orderId = Number(orderIdStr);
   const navigate = useNavigate();
-
+  const user = useAppSelector((state) => state.profile.user);
+  const id = user?.id ? user?.id : 0;
+  
+  
   const { data: order, isLoading: isOrderLoading } =
-    useFetchOrderQuery(orderId);
+  useFetchOrderQuery(orderId);
   const [payOrder, { isLoading: isOrderPaymentLoading }] =
-    useOrderPayMutation();
-
+  useOrderPayMutation();
+  
   const onOrderPay = () => {
     payOrder({ orderId }).then(
       (response: IQueryResponse<IOrderPaymentResponse>) => {
@@ -52,6 +55,31 @@ export const Payment = () => {
         navigate(`${appRoutes.HOME}`);
       }
     );
+
+    const url = `${import.meta.env.VITE_API_URL}/api/finance/add`;
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({userId:id, vp: order?.productsVolumePrice}),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok " + response.statusText);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if(data){
+          console.log('aaa');
+          
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+
   };
 
   if (isNaN(orderId) && isOrderLoading && isOrderPaymentLoading)

@@ -46,27 +46,29 @@ export const LeftSideLinks = () => {
           personalAccountRoutes.BUSINESS,
           pathname
         )}`}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
       >
         <Link to={personalAccountRoutes.BUSINESS}>
           <img src="/images/icons/graph.svg" alt="" />
           <span>Моя структура</span>
         </Link>
-        {isHovered && (
-          <>
-            <div>
-              <Link to={personalAccountRoutes.STATEMENT}>
-                <span>Стейтмент</span>
-              </Link>
-            </div>
-            <div>
-              <Link to={personalAccountRoutes.BUSINESS}>
-                <span>Система работы</span>
-              </Link>
-            </div>
-          </>
-        )}
+      </li>
+      <li className={`lk-menu__link ${isActive(
+          personalAccountRoutes.BUSINESS,
+          pathname
+        )}`}>
+        <Link to={personalAccountRoutes.STATEMENT}>
+          <img src="/images/icons/bank-statement-icon.svg" alt="" />
+          <span>Стейтмент</span>
+        </Link>
+      </li>
+      <li className={`lk-menu__link ${isActive(
+          personalAccountRoutes.BUSINESS,
+          pathname
+        )}`}>
+        <Link to={personalAccountRoutes.SYSTEM}>
+          <img src="/images/icons/cogwheel.svg" alt="" />
+          <span>Система работы</span>
+        </Link>
       </li>
       <li
         className={`lk-menu__link ${isActive(

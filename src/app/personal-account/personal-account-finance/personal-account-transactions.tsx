@@ -1,19 +1,17 @@
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import moment from "moment";
+import { useAppSelector } from "../../hooks";
 
 export const PersonalAccountTransactions = () => {
+  const [finance, setFinance] = useState<any>();
+  const myUser = useAppSelector((state) => state.profile.user);
+  const [tab, setTab] = useState(1);
+  const id = myUser?.id ? myUser?.id : 0;
   const [data, setData] = useState({
     value1: "",
     value2: "",
   });
-  const validateFormData = () => {
-    return Object.values(data).every((val) => val);
-  };
-
-  const handleInputChange = (e: any) => {
-    const { name, value } = e.target;
-    setData({ ...data, [name]: value });
-  };
   const [history, setHistory] = useState([
     {
       id: 1,
@@ -47,7 +45,7 @@ export const PersonalAccountTransactions = () => {
       id: 5,
       data: "12.05.2021",
       document: "Внутренний перевод средств",
-      coming: "260,481 y.e. ",
+      coming: "260,481 y.e.",
       consumption: "0,00 y.e.",
     },
     {
@@ -58,29 +56,192 @@ export const PersonalAccountTransactions = () => {
       consumption: "1 366,98 y.e.",
     },
   ]);
+  const [defaultFromDate, setDefaultFromDate] = useState("");
+  const [defaultToDate, setDefaultToDate] = useState("");
+  const [cloneHistory, setCloneHistory] = useState(history);
+
+  const currentDate = new Date();
+  const year = currentDate.getFullYear();
+  const month = (currentDate.getMonth() + 1).toString().padStart(2, "0");
+  const day = currentDate.getDate().toString().padStart(2, "0");
+  const date = `${year}-${month}-${day}`;
+
+  const [user, setUser] = useState("");
+
+  console.log("data", data);
+
+  useEffect(() => {
+    const url = `${import.meta.env.VITE_API_URL}/api/finance/get`;
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userId: id }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok " + response.statusText);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (data) {
+          setFinance(data);
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+
+      const url1 = `${import.meta.env.VITE_API_URL}/api/finance/get-transfer`;
+      fetch(url1, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId: id }),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok " + response.statusText);
+          }
+          return response.json();
+        })
+        .then((data) => {
+          if (data) {
+            setFinance(data);
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+  }, []);
+
+  const validateFormData = () => {
+    return Object.values(data).every((val) => val);
+  };
+
+  const handleInputChange = (e: any) => {
+    const { name, value } = e.target;
+    setData({ ...data, [name]: value });
+    const regex = /^\d{3}-\d{7}$/;
+
+    if (regex.test(value)) {
+      fetch(`${import.meta.env.VITE_API_URL}/api/user/${value}`)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          setUser(`${data.name} ${data.lastName}`);
+        })
+        .catch((error) => {
+          console.error("There was a problem with the fetch operation:", error);
+          setUser("");
+        });
+    } else {
+      console.log("Invalid format");
+      setUser("");
+    }
+  };
+
+  const dateFilter = (fromDate: any, toDate: any) => {
+    const from = fromDate ? moment(fromDate).startOf("day").toDate() : null;
+    const to = toDate ? moment(toDate).endOf("day").toDate() : null;
+
+    setCloneHistory(
+      history.filter((item) => {
+        const itemDate = moment(item.data, "DD.MM.YYYY").toDate();
+        return (!from || itemDate >= from) && (!to || itemDate <= to);
+      })
+    );
+  };
+
+  const performTranslation = () => {
+    const url = `${import.meta.env.VITE_API_URL}/api/finance/transfer-of-funds`;
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userId: id,
+        toUserId: data.value1,
+        price: data.value2,
+      }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok " + response.statusText);
+        }
+        
+        return response.json();
+      })
+      .then((data) => {
+        if (data) {
+          setFinance(data);
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
+
+  const handleFromDateChange = (e: any) => {
+    const value = e.target.value;
+    setDefaultFromDate(value);
+    dateFilter(value, defaultToDate);
+  };
+
+  const handleToDateChange = (e: any) => {
+    const value = e.target.value;
+    setDefaultToDate(value);
+    dateFilter(defaultFromDate, value);
+  };
 
   return (
     <>
       <div className="lk__transactions">
         <div className="left-box">
-          <p> для перевода доступно:</p>
-          <h1>3 407,00 ₽</h1>
-          <p>97,34 УЕ</p>
+          <p>для перевода доступно:</p>
+          <h1>
+            {finance?.availableRewardAccount
+              ? finance?.availableRewardAccount
+              : 0}{" "}
+            ₽
+          </h1>
+          <p>
+            {finance?.availableRewardAccountUe
+              ? finance?.availableRewardAccountUe
+              : 0}{" "}
+            УЕ
+          </p>
         </div>
         <div className="right-box">
-          <input
-            type="text"
-            placeholder="ID партнера"
-            onChange={handleInputChange}
-            name="value1"
-          />
+          <div className="userInfo">
+            <input
+              type="text"
+              placeholder="ID партнера"
+              onChange={handleInputChange}
+              name="value1"
+            />
+            <small>{user}</small>
+          </div>
           <input
             type="text"
             placeholder="сумма перевода"
             onChange={handleInputChange}
             name="value2"
           />
-          <button disabled={!validateFormData()}>Выполнить перевод</button>
+          <button
+            // disabled={!validateFormData()}
+            onClick={() => performTranslation()}
+          >
+            Выполнить перевод
+          </button>
         </div>
       </div>
       <div className="lk__history">
@@ -88,35 +249,54 @@ export const PersonalAccountTransactions = () => {
           <h3>История переводов</h3>
         </div>
         <div className="history-date">
-          <input type="date" className="inp" />
+          <input
+            type="date"
+            value={defaultFromDate}
+            onChange={handleFromDateChange}
+            className="inp"
+          />
           <p>-</p>
-          <input type="date" className="inp" />
-          <p>Отображать:</p>
-          <select name="" id=""></select>
+          <input
+            type="date"
+            value={defaultToDate}
+            onChange={handleToDateChange}
+            className="inp"
+          />
+          <div
+            onClick={() => {
+              setDefaultFromDate("");
+              setDefaultToDate("");
+              dateFilter("", "");
+            }}
+          >
+            Сброс
+          </div>
         </div>
       </div>
-      <table className="lk__tb">
-        <thead>
-          <tr>
-            <th>Дата</th>
-            <th>Документоснование</th>
-            <th>Приход</th>
-            <th>Расход</th>
-          </tr>
-        </thead>
-        <tbody>
-          {history.map((elm, i) => (
-            <tr key={i}>
-              <td>{elm.data}</td>
-              <td className="tdDoc">
-                <Link to={""}>{elm.document}</Link>
-              </td>
-              <td>{elm.coming}</td>
-              <td>{elm.consumption}</td>
+      <div className="lk__tb">
+        <table>
+          <thead>
+            <tr>
+              <th>Дата</th>
+              <th>Документоснование</th>
+              <th>Приход</th>
+              <th>Расход</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {cloneHistory.map((elm, i) => (
+              <tr key={i}>
+                <td>{elm.data}</td>
+                <td className="tdDoc">
+                  <Link to={""}>{elm.document}</Link>
+                </td>
+                <td>{elm.coming}</td>
+                <td>{elm.consumption}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </>
   );
 };

@@ -17,10 +17,15 @@ export const RewardBanner = () => {
   return (
     marketing && (
       <RewardBannerContainer>
-        <div className="lk__reward-banner" onClick={onRewardBannerClick}>
-          <h3 className="title title--sm lk__reward-title">
-            <a href="#">Система вознаграждения для партнеров B&P</a>
-          </h3>
+        <div className="lk__reward-banner">
+          <div >
+            <h3 className="title title--sm lk__reward-title">
+              Система вознаграждения для партнеров B&P
+            </h3>
+            <div className="lk__dowl_button" onClick={onRewardBannerClick}>
+              Скачать Маркетинг-план
+            </div>
+          </div>
           <picture>
             <source srcSet="/images/reward_banner.png, /images/reward_banner@2x.png 2x" />
             <img src="/images/reward_banner.png" alt="" />

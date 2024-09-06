@@ -27,14 +27,12 @@ export const PersonalAccountProfile = () => {
   if (isLoading || !profile) return <Loader />;
 
   useEffect(() => {
-    if(!coaplicantData){
+    if (!coaplicantData) {
       axios
-        .get(
-          `${import.meta.env.VITE_API_URL}/api/coapplicant/${id}`
-        )
+        .get(`${import.meta.env.VITE_API_URL}/api/coapplicant/${id}`)
         .then((response) => {
-          if(response){
-            setCoaplicantData({...response.data})
+          if (response) {
+            setCoaplicantData({ ...response.data });
             console.log("response.data", response.data);
           }
         })
@@ -42,6 +40,7 @@ export const PersonalAccountProfile = () => {
           console.log(error);
         });
     }
+    console.log("CoApplicantData", coaplicantData);
   }, []);
 
   return (
@@ -169,36 +168,35 @@ export const PersonalAccountProfile = () => {
           userId={id}
         />
       </div>
-      {coaplicantData?(
-        <div className="lk__block lk__block--personal-data">
-        <h2 className="title lk__block-title">Данные коаппликанта</h2>
-        <dl className="lk__block-list">
-          <div>
-            <dt>Фамилия</dt>
-            <dd>{coaplicantData?.lastName}</dd>
-          </div>
-          <div>
-            <dt>Имя</dt>
-            <dd>{coaplicantData?.firstName}</dd>
-          </div>
-          <div>
-            <dt>Отчество</dt>
-            <dd>{coaplicantData?.patronymic}</dd>
-          </div>
-          <div>
-            <dt>Дата рождения</dt>
-            <dd>{coaplicantData?.dateOfBirth}</dd>
-          </div>
-          <div>
-            <dt>Телефоны</dt>
-            <dd>{coaplicantData?.phone}</dd>
-          </div>
-        </dl>
-      </div>
-      ):(
+      {coaplicantData ? (
+        <div className="lk__coaplicant">
+          <h2 className="title lk__block-title">Данные коаппликанта</h2>
+          <dl className="lk__block-list">
+            <div>
+              <dt>Фамилия</dt>
+              <dd>{coaplicantData?.lastName}</dd>
+            </div>
+            <div>
+              <dt>Имя</dt>
+              <dd>{coaplicantData?.firstName}</dd>
+            </div>
+            <div>
+              <dt>Отчество</dt>
+              <dd>{coaplicantData?.patronymic}</dd>
+            </div>
+            <div>
+              <dt>Дата рождения</dt>
+              <dd>{coaplicantData?.dateOfBirth}</dd>
+            </div>
+            <div>
+              <dt>Телефоны</dt>
+              <dd>{coaplicantData?.phone}</dd>
+            </div>
+          </dl>
+        </div>
+      ) : (
         <CoApplicantData />
-      )
-    }
+      )}
     </>
   );
 };

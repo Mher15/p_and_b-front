@@ -6,10 +6,13 @@ export const personalAccountRoutes = {
   PROFILE: "profile",
   CLIENTS: "clients",
   STATEMENT: "statement",
+  SYSTEM : "system",
+  MY_ORDERS: "orders"
 };
 
 export const financeAccountRoutes = {
   FINANCE_BALANCE: "balance",
   FINANCE_TRANSACTIONS: "transactions",
   FINANCE_PAYMENTS: "payments",
+  FINANCE_PAYMENTS_EDIT: "payments/edit",
 }

@@ -1,3 +1,6 @@
+import { Link } from "react-router-dom";
+import { financeAccountRoutes } from "../../data/constants";
+
 export const MyBankingDetails = () => {
 
   const MyProps = [
@@ -70,7 +73,9 @@ export const MyBankingDetails = () => {
           </div>
           <div className="lk__banking-user__edit-section">
             <img src="/images/icons/edit.svg" alt="" />
-            <span>Редактировать</span>
+            <Link to={`/personal-account/${financeAccountRoutes.FINANCE_PAYMENTS_EDIT}`}>
+              <span>Редактировать</span>
+            </Link>
           </div>
         </div>
         <div className="lk__banking-fisrt-part-details">
@@ -115,7 +120,7 @@ export const MyBankingDetails = () => {
           <div>
             <div style={{ display: 'flex', flexDirection: "column" }}>
               <span>Статус:</span>
-              <p>test</p>
+              <p style={{ color: "#72be43" }}>test</p>
             </div>
           </div>
         </div>

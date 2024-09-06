@@ -29,7 +29,6 @@ export const GiftLevelsInputs = () => {
                 >
                   <InputNumber />
                 </Form.Item>
-
                 <MinusCircleOutlined
                   className="dynamic-delete-button"
                   onClick={() => remove(name)}

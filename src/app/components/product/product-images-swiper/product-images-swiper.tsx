@@ -75,8 +75,6 @@ const ModalContent = styled.div`
 `;
 
 export const ProductSwiper = ({ images }: IProductSliderProps) => {
-  console.log("imges", images);
-  
   const [imageIndex, setImageIndex] = useState(0);
   const currentImage = images[imageIndex];
   const onTrumbClick = (trumbImageIndex: number) => () => {
