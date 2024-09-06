@@ -61,7 +61,7 @@ export const AppRoutes = () => {
   const user = useAppSelector(state => state.profile.user)
   return (
     <Routes>
-      <Route path={appRoutes.HOME} element={<MainPage />} />
+      <Route path={appRoutes.HOME} element={<Test />} />
       <Route path={'/test/ape'} element={<Test />} />
       <Route path={appRoutes.PRODUCT} element={<Product />} />
       <Route path={appRoutes.CATALOG} element={<Catalog />} />
